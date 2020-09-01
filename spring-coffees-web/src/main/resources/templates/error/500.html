@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" th:replace="security-fragments::link"/>
+    <link rel="stylesheet" th:href="@{/css/web-common.css}"/>
+    <link rel="stylesheet" th:href="@{/css/errors.css}"/>
+    <title>Error</title>
+</head>
+<body>
+
+<div th:replace="security-fragments::#top-bar"></div>
+
+<h1 th:text="${exception}">Error</h1>
+
+<hr>
+<p th:text="${message}">Error message</p>
+<ul th:each="error: ${errors}">
+    <li th:text="${error}">Errors details</li>
+</ul>
+<hr>
+
+<!--<a href="javascript:void(0)">Go back</a>-->
+<!--<script>-->
+<!--    $("#back-link").on("click", function (e) {-->
+<!--        e.preventDefault();-->
+<!--        history.back();-->
+<!--    });-->
+<!--</script>-->
+
+</body>
+</html>

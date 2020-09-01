@@ -1,0 +1,1 @@
+web: java $JAVA_OPTS -jar spring-coffees-app/target/*.jar --server.port=$PORT --spring.profiles.active=demo

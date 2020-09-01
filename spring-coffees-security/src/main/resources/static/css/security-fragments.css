@@ -1,0 +1,85 @@
+#top-bar {
+    position: fixed;
+    top: 0;
+    z-index: 2;
+    width: 100%;
+    padding: 0;
+    background-color: #5f5f5f;
+    color: #f1f1f1;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-align: right;
+}
+
+a.home-link, a.user-link, a.restart-link {
+    display: inline-block;
+    margin: 0;
+    padding: 0.5em 2em;
+    color: #f1f1f1;
+    text-decoration: none;
+}
+
+a.home-link {
+    float: left;
+}
+
+a.home-link:before {
+    content: "\1F3E0";
+    padding-right: 0.5em;
+}
+
+a.user-link:before {
+    content: "\1F464";
+    padding-right: 0.5em;
+}
+
+a.restart-link:before {
+    content: "\1F300";
+    padding-right: 0.5em;
+}
+
+a.home-link:hover, a.restart-link:hover, a.user-link:hover {
+    background-color: #000;
+    color: #f1f1f1;
+}
+
+.dropdown {
+    display: inline-block;
+    position: relative;
+    text-align: left;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    overflow: auto;
+    background-color: #f9f9f9;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.dropdown-content a {
+    display: block;
+    padding: 0.7em 1em;
+    text-decoration: none;
+
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown:hover a.user-link {
+    background-color: #000;
+    color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+form[name="logoutForm"] {
+    display: none;
+}

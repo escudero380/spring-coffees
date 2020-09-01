@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" th:replace="security-fragments::link"/>
+    <link rel="stylesheet" th:href="@{/css/web-common.css}"/>
+    <link rel="stylesheet" th:href="@{/css/loader.css}"/>
+    <link rel="stylesheet" th:href="@{/css/jquery.ui.css}"/>
+    <link rel="stylesheet" th:href="@{/css/jquery.jqpagination.css}"/>
+    <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/jquery.ui.js}"></script>
+    <script type="text/javascript" th:src="@{/js/jquery.jqpagination.js}"></script>
+    <script type="text/javascript" th:src="@{/js/sales.js}"></script>
+    <title>Sales</title>
+</head>
+<body>
+
+<div th:replace="security-fragments::#top-bar"></div>
+
+<h1 class="float-left">Sales</h1>
+
+<div class="filters">
+    <div>
+        <label for="start-date-filter">Start date:</label>
+        <input id="start-date-filter" name="startDate"
+               th:value="${#temporals.format(salesFilters['start_date'], 'dd.MM.yyyy')}"/>
+    </div>
+    <div>
+        <label for="end-date-filter">End date:</label>
+        <input id="end-date-filter" name="endDate"
+               th:value="${#temporals.format(salesFilters['end_date'], 'dd.MM.yyyy')}"/>
+    </div>
+</div>
+
+<div style="float:left; width: 100%">
+    <div class="filters">
+        <div>
+            <label for="coffee-filter">Filter by Coffee:</label>
+            <select id="coffee-filter" name="coffeeTuple" size="1">
+                <option value="">All</option>
+                <option th:each="coffee : ${coffeeTuplesList}" th:value="${coffee}" th:text="${coffee}"
+                        th:selected="${#strings.equals(salesFilters['coffee_tuple'], coffee)}">
+                </option>
+            </select>
+        </div>
+        <div>
+            <label for="supplier-filter">Filter by Supplier:</label>
+            <select id="supplier-filter" name="supplierId" size="1">
+                <option value="0">All</option>
+                <option th:each="supplier : ${suppliersList}" th:value="${supplier.id}" th:text="${supplier.name}"
+                        th:selected="${#strings.equals(salesFilters['supplier_id'], supplier.id)}">
+                </option>
+            </select>
+        </div>
+        <div>
+            <label for="manager-filter">Filter by Manager:</label>
+            <select id="manager-filter" name="saleManager" size="1">
+                <option value="">All</option>
+                <option th:each="user : ${usersList}" th:value="${user.username}" th:text="${user.username}"
+                        th:selected="${#strings.equals(salesFilters['sale_manager'], user.username)}">
+                </option>
+            </select>
+        </div>
+    </div>
+    <div class="pagination">
+        <a href="#" class="first" data-action="first">&laquo;</a>
+        <a href="#" class="previous" data-action="previous">&lsaquo;</a>
+        <input type="text" readonly="readonly"
+               th:data-max-page="${salesPage.page.totalPages} == 0 ? '1' : ${salesPage.page.totalPages}"
+               th:data-current-page="${salesPage.page.number + 1}"/>
+        <a href="#" class="next" data-action="next">&rsaquo;</a>
+        <a href="#" class="last" data-action="last">&raquo;</a>
+    </div>
+</div>
+
+<table id="sales-table">
+    <tr>
+        <th>#</th>
+        <th>Coffee</th>
+        <th>Supplier</th>
+        <th>Manager</th>
+        <th id="date-time-order-clicker" style="cursor: pointer" title="Click to change direction"
+            th:data-direction="${salesDateTimeDirection}">
+                <span th:class="${#strings.equals(salesDateTimeDirection, 'ASC')} ? 'arrow-up' : 'arrow-down'">
+                    Date and Time
+                </span>
+        </th>
+        <th>Quantity</th>
+        <th>Sum</th>
+        <th>Select</th>
+    </tr>
+    <tr th:each="sale, status : ${salesPage.page.content}">
+        <td th:text="${status.count + salesPage.page.pageable.offset}"></td>
+        <td th:text="${sale.coffeeTuple}"></td>
+        <td th:text="${sale.supplierName}"></td>
+        <td th:text="${sale.manger}"></td>
+        <td th:text="${#temporals.format(sale.dateTime, 'dd.MM.yyyy HH:mm:ss')}"></td>
+        <td th:text="${#numbers.formatInteger(sale.saleQuantity, 1, 'WHITESPACE')}"></td>
+        <td th:text="${#numbers.formatDecimal(sale.saleSum, 1, 'WHITESPACE', 2, 'DEFAULT')}"></td>
+        <td>
+            <input type="checkbox" name="selectedSales" th:value="${sale.id}" form="sales-form"/>
+        </td>
+    </tr>
+</table>
+
+<div class="totals">
+    Total sales:
+    <span th:text="${#numbers.formatInteger(salesPage.page.TotalElements, 1, 'WHITESPACE')}"></span><br>
+    Total quantity:
+    <span th:text="${#numbers.formatInteger(salesPage.totalQuantity, 1, 'WHITESPACE')}"></span><br>
+    Total sum:
+    <span th:text="${#numbers.formatDecimal(salesPage.totalSum, 1, 'WHITESPACE', 2, 'DEFAULT')}"></span>
+</div>
+
+<div class="buttons">
+    <button id="delete-button" class="red">Delete selected</button>
+</div>
+
+<div class="loader-wrapper">
+    <div class="loader"></div>
+</div>
+
+<form id="sales-form" th:action="@{/sales/delete}" th:object="${salesForm}" method="POST" style="display: none">
+    <span class="notice">This would delete all selected sales on this page</span>
+    <br>
+    <button type="submit">Submit</button>
+</form>
+
+</body>
+</html>

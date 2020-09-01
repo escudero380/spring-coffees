@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" th:replace="security-fragments::link"/>
+    <link rel="stylesheet" th:href="@{/css/web-common.css}"/>
+    <title>User Update</title>
+</head>
+<body>
+
+<div th:replace="security-fragments::#top-bar"></div>
+
+<h1>User Update</h1>
+
+<p>Here you may update your personal user details:</p>
+
+<form th:action="@{/user/update}" th:object="${userUpdateForm}" method="POST">
+    <label>Username: </label>
+    <input type="text" th:value="${#authentication.name}" disabled/>
+    <span class="validation-error" th:if="${#fields.hasErrors('username')}">
+        Information was not updated. Try again!</span>
+    <input type="hidden" name="username" th:value="${#authentication.name}"/>
+    <br>
+    <label for="firstName">First name: </label>
+    <input type="text" th:field="*{firstName}"/>
+    <span class="validation-error"
+          th:if="${#fields.hasErrors('firstName')}"
+          th:errors="*{firstName}">First Name Error</span>
+    <br>
+    <label for="lastName">Last name: </label>
+    <input type="text" th:field="*{lastName}"/>
+    <span class="validation-error"
+          th:if="${#fields.hasErrors('lastName')}"
+          th:errors="*{lastName}">Last Name Error</span>
+    <br>
+    <label for="email">E-mail: </label>
+    <input type="text" th:field="*{email}"/>
+    <span class="validation-error"
+          th:if="${#fields.hasErrors('email')}"
+          th:errors="*{email}">E-mail Error</span>
+    <br>
+    <span class="notice">
+        Need to change password?
+        <a th:href="@{/reset-password/step-1}" class="inverse">Reset</a> it.
+    </span>
+    <br>
+    <button type="submit">Submit</button>
+</form>
+
+
+</body>
+</html>

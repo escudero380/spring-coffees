@@ -1,0 +1,235 @@
+/*----------------------------------- General ---*/
+
+body {
+    font-family: "Trebuchet MS", Arial, sans-serif;
+    margin: 0;
+    padding-top: 3em;
+    padding-bottom: 2em;
+}
+
+h1 {
+    display: block;
+    margin: 0;
+    padding: 0 2em;
+}
+
+.float-left {
+    float: left;
+}
+
+p {
+    display: block;
+    clear: both;
+    padding: 0.5em 2em;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+p.extra-padding {
+    padding-left: 4em;
+}
+
+ul {
+    padding: 0 8em;
+}
+
+li {
+    margin-top: 0.5em;
+}
+
+/*----------------------------------- Links ---*/
+
+a {
+    color: #46a049;
+}
+
+a:hover {
+    color: #f44336;
+}
+
+a.inverse {
+    color: #f44336;
+}
+
+a.inverse:hover {
+    color: #46a049;
+}
+
+/*----------------------------------- Filters ---*/
+
+.filters {
+    display: block;
+    float: right;
+    margin: 1em 0 0.5em 0;
+    padding: 0 4em;
+
+}
+
+.filters div {
+    font-size: 0.9em;
+    display: inline-block;
+    padding: 0 0.5em;
+}
+
+/*----------------------------------- Tables ---*/
+
+table {
+    clear: both;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table td, table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+table tr:hover {
+    background-color: #ddd;
+}
+
+table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
+
+div.totals {
+    float: right;
+    margin: 1em 4em 0 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-size: 0.9em;
+}
+
+span.arrow-up:after {
+    content: " \1F815";
+}
+
+span.arrow-down:after {
+    content: " \1F817";
+}
+
+
+/*----------------------------------- Buttons ---*/
+
+.buttons {
+    padding: 2em 2em;
+}
+
+.buttons button {
+    display: inline-block;
+    margin: 0.2em;
+    padding: 0.5em 1em;
+    border: none;
+    border-radius: 4px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    color: #fff;
+}
+
+.buttons button.blue {
+    background-color: #008CBA;
+}
+
+.buttons button.red {
+    background-color: #f44336;
+}
+
+.buttons button.brown {
+    background-color: #996633;
+}
+
+.buttons button:hover {
+    background-color: #000;
+    color: #f1f1f1;
+}
+
+/*----------------------------------- Forms ---*/
+
+select, input[type=text], input[type=password], .filters input {
+    padding: 0.25em 1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+form {
+    margin: 0 2em;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+form label {
+    display: inline-block;
+    width: 8em;
+    margin-top: 0.7em;
+    font-size: 0.9em;
+}
+
+form input[type="text"], form input[type="password"] {
+    width: 16em;
+}
+
+form span.notice {
+    display: inline-block;
+    margin: 0.5em 0;
+    padding: 0.5em 1em;
+    background-color: #ffffcc;
+    color: #5f5f5f;
+    font-family: "Segoe UI Light", Arial, sans-serif;
+}
+
+form button {
+    display: inline-block;
+    margin: 0.2em;
+    padding: 0.8em 2.2em;
+    border: none;
+    letter-spacing: 1px;
+    cursor: pointer;
+    background-color: #46a049;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+form button:after {
+    content: "\00BB";
+    padding-left: 0.5em;
+}
+
+form button.cancel:after {
+    content: "\00D7";
+}
+
+form button:hover {
+    background-color: #5f5f5f;
+}
+
+/*----------------------------------- Errors ---*/
+
+.error, .validation-error, .password-repeat-error {
+    display: block;
+    margin: 0.5em 0 0 10em;
+    font-family: monospace, monospace;
+    font-size: 0.9em;
+    color: #f44336;
+}
+
+.error {
+    margin: 1.5em 2em 0.5em 2em;
+}
+
+/*----------------------------------- Statuses ---*/
+
+.status {
+    font-family: monospace, monospace;
+    color: #008CBA;
+}
+
+/*div.password-status {*/
+/*    margin: 2em 0 0 2em;*/
+/*    font-family: monospace, monospace;*/
+/*    color: #4682b4;*/
+/*}*/
