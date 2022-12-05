@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" th:replace="security-fragments::link"/>
+    <link rel="stylesheet" th:href="@{/css/web-common.css}"/>
+    <title>User Profile</title>
+</head>
+<body>
+
+<div th:replace="security-fragments::#top-bar"></div>
+
+<h1>User Profile</h1>
+
+<p>Here is information regarded to your current profile:</p>
+
+<form>
+    <label for="username">Username: </label>
+    <input type="text" id="username" th:value="${currentUser.username}" disabled/>
+    <br>
+    <label for="firstName">First name: </label>
+    <input type="text" id="firstName" th:value="${currentUser.firstName}" disabled/>
+    <br>
+    <label for="lastName">Last name: </label>
+    <input type="text" id="lastName" th:value="${currentUser.lastName}" disabled/>
+    <br>
+    <label for="email">E-mail: </label>
+    <input type="text" id="email" th:value="${currentUser.email}" disabled/>
+    <br>
+    <label for="authority">Authority: </label>
+    <input type="text" id="authority" th:value="${currentUser.authority}" disabled/>
+    <br>
+    <label for="status">Enabled: </label>
+    <input type="text" id="status" th:value="${currentUser.enabled}" disabled/>
+    <br><br>
+    <span class="notice">
+        Need to update personal details?
+        <a th:href="@{/user/update}" class="inverse">Do</a> it.
+    </span>
+</form>
+
+</body>
+</html>

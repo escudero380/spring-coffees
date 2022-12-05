@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" th:replace="security-fragments::link"/>
+    <link rel="stylesheet" th:href="@{/css/web-common.css}"/>
+    <link rel="stylesheet" th:href="@{/css/jquery.ui.css}"/>
+    <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/jquery.ui.js}"></script>
+    <script type="text/javascript" th:src="@{/js/stats.js}"></script>
+    <title>Statistics</title>
+</head>
+<body>
+
+<div th:replace="security-fragments::#top-bar"></div>
+
+<h1 class="float-left">Statistics</h1>
+
+<div class="filters">
+    <div>
+        <label for="limit-filter">Show top </label>
+        <input id="limit-filter" name="limit" size="1" th:value="${statsFilters['limit']}"/>
+    </div>
+    <div>
+        <label for="top-seller-filter">best selling </label>
+        <select id="top-seller-filter" name="topSeller" size="1"
+                th:with="values = ${T(springcoffees.domain.Stats.TopSellers).values()}">
+            <option th:each="v : ${#strings.arrayToLowerCase(values)}"
+                    th:value="${v}" th:text="${#strings.capitalize(v)}"
+                    th:selected="${#strings.equals(statsFilters['topSeller'], v)}">
+            </option>
+        </select>
+    </div>
+    <div>
+        <label for="months-filter">for the last </label>
+        <input id="months-filter" name="months" size="1" th:value="${statsFilters['months']}"/> month(s)
+    </div>
+</div>
+
+
+<table id="stats-table">
+    <tr>
+        <th:block th:each="colName : ${stats.headers}">
+            <th th:text="${colName}"></th>
+        </th:block>
+    </tr>
+    <tr th:each="row : ${stats.results} ">
+        <th:block th:each="cell : ${row}">
+            <td th:text="${cell}"></td>
+        </th:block>
+    </tr>
+</table>
+
+<div class="totals">
+    Total quantity:
+    <span th:text="${#numbers.formatInteger(stats.totalQuantity, 1, 'WHITESPACE')}"></span><br>
+    Total sum:
+    <span th:text="${#numbers.formatDecimal(stats.totalSum, 1, 'WHITESPACE', 2, 'DEFAULT')}"></span>
+</div>
+
+</body>
+</html>

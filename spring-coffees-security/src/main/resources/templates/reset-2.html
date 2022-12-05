@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" th:replace="security-fragments::link"/>
+    <link rel="stylesheet" th:href="@{/css/web-common.css}"/>
+    <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/security-common.js}"></script>
+    <title>Reset Password (Step 2)</title>
+</head>
+<body>
+
+<div th:replace="security-fragments::#top-bar"></div>
+
+<h1>Reset Password (Step 2)</h1>
+
+<th:block th:switch="${resetError != null}">
+    <div th:case="true" class="error">
+        Failed to reset password! You should start over<br>
+        and make a <a th:href="@{/reset-password/step-1}">request</a> for another resetting link.
+    </div>
+
+    <div th:case="false">
+        <p>Enter your new password twice and click submit button.</p>
+        <form th:action="@{/reset-password/step-2}" th:object="${resetForm2}" method="POST">
+            <input type="hidden" name="token" th:value="${token}">
+            <label for="password">New password: </label>
+            <input type="password" id="password" th:field="*{password}"/>
+            <span class="validation-error"
+                  th:if="${#fields.hasErrors('password')}"
+                  th:errors="*{password}">Password Error</span>
+            <br>
+            <label for="password-repeat">Repeat again: </label>
+            <input type="password" id="password-repeat"/>
+            <span class="validation-error"
+                  th:if="${#fields.hasErrors('password')}"
+                  th:errors="*{password}">Password Error</span>
+            <span class="password-repeat-error" style="display: none">
+                Passwords don't match</span>
+            <br><br>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</th:block>
+
+</body>
+</html>

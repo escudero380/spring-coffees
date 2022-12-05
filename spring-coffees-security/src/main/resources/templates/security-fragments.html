@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" th:href="@{/css/security-fragments.css}"/>
+    <title>Security Fragments</title>
+</head>
+<body>
+
+<!-- Top bar fragment with currently logged-in user -->
+<div id="top-bar">
+
+    <a class="home-link" th:href="@{/}">Home</a>
+
+    <div class="dropdown" th:switch="${#authorization.expression('isAuthenticated()')}">
+
+        <th:block th:case="true">
+            <a class="user-link" href="javascript:void(0)"
+               th:text="${#authentication.name + ' ' + #authentication.getAuthorities()}"></a>
+            <div class="dropdown-content">
+                <a th:href="@{/user}">User profile</a>
+                <a href="javascript:void(0)" onclick="document.logoutForm.submit()">Logout</a>
+            </div>
+            <form name="logoutForm" th:action="@{/logout}" method="POST"></form>
+        </th:block>
+
+        <th:block th:case="false">
+            <a class="user-link" href="javascript:void(0)">Unauthorized</a>
+            <div class="dropdown-content">
+                <a th:href="@{/login}">Login</a>
+            </div>
+        </th:block>
+
+    </div>
+
+    <th:block th:if="${@environment.getActiveProfiles()[0] eq 'demo'}">
+        <a class="restart-link" th:href="@{/restart}">Restart</a>
+    </th:block>
+
+</div>
+
+<!-- Users link fragment (displayed only for admins) -->
+<ul>
+    <li th:fragment="users-link-for-admins-only" th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">
+        <a th:href="@{/users}">Users</a>
+    </li>
+</ul>
+
+</body>
+</html>

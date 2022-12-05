@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" th:replace="security-fragments::link"/>
+    <link rel="stylesheet" th:href="@{/css/web-common.css}"/>
+    <title>Restart</title>
+</head>
+<body>
+
+<div th:replace="security-fragments::#top-bar"></div>
+
+<h1>Restart</h1>
+
+<form th:action="@{/restart}" method="POST">
+    <br>
+    <span class="notice">
+        Currently, this application is running in demonstration mode.<br>
+        Just click the button bellow for re-populating tables
+        with initial demo-data any moment your want.<br>
+        However, notice that all data changes made up to that point will be lost.
+    </span>
+    <br>
+    <span class="notice">
+        Use default `admin` username with `admin` password for authentication after restart.<br>
+        Additionally, you may use any username from users table with `12345678` password.
+    </span>
+    <br>
+    <button type="submit">Restart</button>
+</form>
+
+</body>
+</html>

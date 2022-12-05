@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" th:replace="security-fragments::link"/>
+    <link rel="stylesheet" th:href="@{/css/web-common.css}"/>
+    <link rel="stylesheet" th:href="@{/css/loader.css}"/>
+    <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/coffees.js}"></script>
+    <title>Coffees</title>
+</head>
+<body>
+
+<div th:replace="security-fragments::#top-bar"></div>
+
+<h1 class="float-left">Coffees</h1>
+
+<div class="filters" th:if="${coffeesForm.formAction == null}">
+    <div>
+        <label for="supplier-filter">Filter by Supplier:</label>
+        <select id="supplier-filter" name="supplierId" size="1">
+            <option value="0">ALL</option>
+            <option th:each="supplier : ${suppliersListInCoffees}" th:value="${supplier.id}"
+                    th:text="${supplier.name}"
+                    th:selected="${#strings.equals(coffeesFilters['supplierId'], supplier.id)}">
+            </option>
+        </select>
+    </div>
+    <div>
+        <label for="order-by-filter">Order by:</label>
+        <select id="order-by-filter" name="orderBy" size="1">
+            <option th:each="val : ${T(springcoffees.domain.Coffee.OrderBy).values()}" th:value="${val}"
+                    th:text="${#strings.capitalize(#strings.toLowerCase(val))}"
+                    th:selected="${#strings.equals(coffeesFilters['orderBy'], val)}">
+            </option>
+        </select>
+    </div>
+</div>
+
+<table id="coffees-table">
+    <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Origin</th>
+        <th>Supplier</th>
+        <th>Current Price</th>
+        <th>Stock</th>
+        <th>Select</th>
+    </tr>
+    <tr th:each="coffee, status : ${coffeesList}" th:data-coffee-id="${coffee.id}">
+        <td th:text="${status.count}"></td>
+        <td th:text="${coffee.name}"></td>
+        <td th:text="${coffee.origin}"></td>
+        <td th:text="${coffee.supplierName}" th:data-supplier-id="${coffee.supplierId}"></td>
+        <td th:text="${coffee.currentPrice}"></td>
+        <td th:text="${#numbers.formatInteger(coffee.stock, 1, 'WHITESPACE')}"></td>
+        <td><input type="radio" name="select-row"></td>
+    </tr>
+</table>
+
+<div class="buttons" th:if="${coffeesForm.formAction == null}">
+    <button id="delete-button" class="red">Delete selected</button>
+    <button id="update-button" class="blue">Update selected</button>
+    <button id="add-new-button" class="blue">Add new Coffee</button>
+    <button id="buy-button" class="brown" style="margin-left: 4em">Buy quantity</button>
+    <button id="sell-button" class="brown">Sell quantity</button>
+</div>
+
+<div class="loader-wrapper">
+    <div class="loader"></div>
+</div>
+
+<form id="coffees-form" th:action="@{/coffees/}" th:object="${coffeesForm}" method="POST" style="display: none">
+    <input type="hidden" th:field="*{formAction}"/>
+    <input type="hidden" th:field="*{id}"/>
+    <span class="validation-error"
+          th:if="${#fields.hasErrors('id')}"
+          th:errors="*{id}">Id Error</span>
+    <label for="name">Name: </label>
+    <input type="text" th:field="*{name}" disabled/>
+    <span class="validation-error"
+          th:if="${#fields.hasErrors('name')}"
+          th:errors="*{name}">Name Error</span>
+    <br>
+    <label for="origin">Origin: </label>
+    <input type="text" th:field="*{origin}" disabled/>
+    <span class="validation-error"
+          th:if="${#fields.hasErrors('origin')}"
+          th:errors="*{origin}">Origin Error</span>
+    <br>
+    <label for="supplierId">Supplier: </label>
+    <select th:field="*{supplierId}" size="1" disabled>
+        <option th:each="supplier : ${suppliersListInCoffees}" th:value="${supplier.id}"
+                th:text="${supplier.name}"
+                th:selected="${#strings.equals(coffeesForm.supplierId, supplier.id)}">
+        </option>
+    </select>
+    <span class="validation-error"
+          th:if="${#fields.hasErrors('supplierId')}"
+          th:errors="*{supplierId}">Supplier Error</span>
+    <br>
+    <label for="currentPrice">Price: </label>
+    <input type="text" th:field="*{currentPrice}" disabled/>
+    <span class="validation-error"
+          th:if="${#fields.hasErrors('currentPrice')}"
+          th:errors="*{currentPrice}">Price Error</span>
+    <br>
+    <span style="white-space: nowrap">
+        <label for="stock">Stock: </label>
+        <input type="text" th:field="*{stock}" disabled/>
+        <label for="quantity" style="text-align: center"> &#10133; </label>
+        <input type="text" th:field="*{quantity}" style="width: 8em" disabled/>
+    </span>
+    <span class="validation-error"
+          th:if="${#fields.hasErrors('stock')}"
+          th:errors="*{stock}">Stock Error</span>
+    <br>
+    <span class="validation-error"
+          th:if="${#fields.hasErrors('quantity')}"
+          th:errors="*{quantity}">Quantity Error</span>
+    <br>
+    <span class="notice">Click submit button to confirm your choice</span>
+    <br>
+    <button type="submit">Submit</button>
+    <button type="button" class="cancel" th:if="${coffeesForm.formAction != null}">Cancel</button>
+</form>
+
+</body>
+</html>

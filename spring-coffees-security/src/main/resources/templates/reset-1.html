@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" th:replace="security-fragments::link"/>
+    <link rel="stylesheet" th:href="@{/css/web-common.css}"/>
+    <title>Reset Password (Step 1)</title>
+</head>
+<body>
+
+<div th:replace="security-fragments::#top-bar"></div>
+
+<h1>Reset Password (Step 1)</h1>
+
+<p>
+    Please, provide e-mail address you are registered with,<br>
+    so that we can send you a link to reset your password.
+</p>
+
+<form th:action="@{/reset-password/step-1}" th:object="${resetForm1}" method="POST">
+    <span class="validation-error"
+          th:if="${#fields.hasErrors('email')}"
+          th:errors="*{email}">E-mail Error</span>
+    <label for="email">E-mail: </label>
+    <input type="text" th:field="*{email}"/>
+    <br><br>
+    <button type="submit">Submit</button>
+</form>
+
+</body>
+</html>

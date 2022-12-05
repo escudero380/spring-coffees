@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" th:replace="security-fragments::link"/>
+    <link rel="stylesheet" th:href="@{/css/web-common.css}"/>
+    <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/security-common.js}"></script>
+    <title>Registration</title>
+</head>
+<body>
+
+<div th:replace="security-fragments::#top-bar"></div>
+
+<h1>Registration</h1>
+
+<p>Please, fill in this form to create an account.</p>
+
+<form th:action="@{/register}" th:object="${registrationForm}" method="POST">
+
+    <label for="username">Username: </label>
+    <input type="text" th:field="*{username}"/>
+    <span class="validation-error"
+          th:if="${#fields.hasErrors('username')}"
+          th:errors="*{username}">Username Error</span>
+    <br>
+    <label for="password">Password: </label>
+    <input type="password" th:field="*{password}"/>
+    <span class="validation-error"
+          th:if="${#fields.hasErrors('password')}"
+          th:errors="*{password}">Password Error</span>
+    <br>
+    <label for="password-repeat">Repeat password: </label>
+    <input type="password" id="password-repeat"/>
+    <span class="validation-error"
+          th:if="${#fields.hasErrors('password')}"
+          th:errors="*{password}">Password Error</span>
+    <span class="password-repeat-error" style="display: none">
+        Passwords don't match</span>
+    <br>
+    <label for="firstName">First name: </label>
+    <input type="text" th:field="*{firstName}"/>
+    <span class="validation-error"
+          th:if="${#fields.hasErrors('firstName')}"
+          th:errors="*{firstName}">First Name Error</span>
+    <br>
+    <label for="lastName">Last name: </label>
+    <input type="text" th:field="*{lastName}"/>
+    <span class="validation-error"
+          th:if="${#fields.hasErrors('lastName')}"
+          th:errors="*{lastName}">Last Name Error</span>
+    <br>
+    <label for="email">E-mail: </label>
+    <input type="text" th:field="*{email}"/>
+    <span class="validation-error"
+          th:if="${#fields.hasErrors('email')}"
+          th:errors="*{email}">E-mail Error</span>
+    <br><br>
+    <button type="submit">Submit</button>
+</form>
+
+</body>
+</html>

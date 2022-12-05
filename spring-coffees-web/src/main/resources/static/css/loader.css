@@ -1,0 +1,122 @@
+.loader-wrapper {
+    display: none;
+    padding-left: 1em;
+    padding-right: 1em;
+    /*margin: auto;*/
+    width: 120px;
+}
+
+.loader-wrapper .loader {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin: 2em;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+}
+
+.loader-wrapper .loader {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin: 2em;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+}
+.loader-wrapper .loader,
+.loader-wrapper .loader:before,
+.loader-wrapper .loader:after {
+    animation: 3.1s infinite ease-in-out;
+    -o-animation: 3.1s infinite ease-in-out;
+    -ms-animation: 3.1s infinite ease-in-out;
+    -webkit-animation: 3.1s infinite ease-in-out;
+    -moz-animation: 3.1s infinite ease-in-out;
+}
+.loader-wrapper .loader:before,
+.loader-wrapper .loader:after {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.loader-wrapper .loader:before,
+.loader-wrapper .loader:after {
+    content: "";
+}
+
+.loader-wrapper .loader {
+    background-color: white;
+    animation: cssload-flower-fan 1.24s infinite linear;
+    -o-animation: cssload-flower-fan 1.24s infinite linear;
+    -ms-animation: cssload-flower-fan 1.24s infinite linear;
+    -webkit-animation: cssload-flower-fan 1.24s infinite linear;
+    -moz-animation: cssload-flower-fan 1.24s infinite linear;
+}
+.loader-wrapper .loader:before{
+    content: "";
+    width: 80%;
+    height: 80%;
+    background-color: white;
+    top: 10%;
+    left: 10%;
+    box-shadow: 3px -2px 0 rgba(244,66,54,0.7),
+    3px 3px 0 rgba(153,102,51,0.7),
+    -2px 3px 0 rgba(0,140,186,0.7),
+    -3px -3px 0 rgba(76,175,79,0.7);
+    -o-box-shadow: 3px -2px 0 rgba(244,66,54,0.7),
+    3px 3px 0 rgba(153,102,51,0.7),
+    -2px 3px 0 rgba(0,140,186,0.7),
+    -3px -3px 0 rgba(76,175,79,0.7);
+    -ms-box-shadow: 3px -2px 0 rgba(244,66,54,0.7),
+    3px 3px 0 rgba(153,102,51,0.7),
+    -2px 3px 0 rgba(0,140,186,0.7),
+    -3px -3px 0 rgba(76,175,79,0.7);
+    -webkit-box-shadow: 3px -2px 0 rgba(244,66,54,0.7),
+    3px 3px 0 rgba(153,102,51,0.7),
+    -2px 3px 0 rgba(0,140,186,0.7),
+    -3px -3px 0 rgba(76,175,79,0.7);
+    -moz-box-shadow: 3px -2px 0 rgba(244,66,54,0.7),
+    3px 3px 0 rgba(153,102,51,0.7),
+    -2px 3px 0 rgba(0,140,186,0.7),
+    -3px -3px 0 rgba(76,175,79,0.7);
+}
+.loader-wrapper .loader:after{
+    content: "";
+    border: 2px solid white;
+    z-index: 2;
+    top: -2px;
+    left: -2px;
+}
+
+
+
+
+@keyframes cssload-flower-fan {
+    0%	 { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@-o-keyframes cssload-flower-fan {
+    0%	 { -o-transform: rotate(0deg); }
+    100% { -o-transform: rotate(360deg); }
+}
+
+@-ms-keyframes cssload-flower-fan {
+    0%	 { -ms-transform: rotate(0deg); }
+    100% { -ms-transform: rotate(360deg); }
+}
+
+@-webkit-keyframes cssload-flower-fan {
+    0%	 { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+}
+
+@-moz-keyframes cssload-flower-fan {
+    0%	 { -moz-transform: rotate(0deg); }
+    100% { -moz-transform: rotate(360deg); }
+}

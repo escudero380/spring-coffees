@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" th:replace="security-fragments::link"/>
+    <link rel="stylesheet" th:href="@{/css/web-common.css}"/>
+    <link rel="stylesheet" th:href="@{/css/loader.css}"/>
+    <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/users.js}"></script>
+    <title>Users</title>
+</head>
+<body>
+
+<div th:replace="security-fragments::#top-bar"></div>
+
+<h1 class="float-left">Users</h1>
+
+<div class="filters" th:if="${usersForm.formAction == null}">
+    <div>
+        <label for="enabled-filter">Filter by Enabled:</label>
+        <select id="enabled-filter" name="enabled" size="1">
+            <option value="">ALL</option>
+            <option th:each="val : ${T(springcoffees.domain.User.Enabled).values()}" th:value="${val}"
+                    th:text="${#strings.capitalize(#strings.toLowerCase(val))}"
+                    th:selected="${#strings.equals(usersFilters['enabled'], val)}">
+            </option>
+        </select>
+    </div>
+    <div>
+        <label for="authority-filter">Filter by Authority:</label>
+        <select id="authority-filter" name="authority" size="1">
+            <option value="">ALL</option>
+            <option th:each="val : ${T(springcoffees.domain.User.Authority).values()}" th:value="${val}"
+                    th:text="${#strings.capitalize(#strings.toLowerCase(val))}"
+                    th:selected="${#strings.equals(usersFilters['authority'], val)}">
+            </option>
+        </select>
+    </div>
+    <div>
+        <label for="order-by-filter">Order by:</label>
+        <select id="order-by-filter" name="orderBy" size="1">
+            <option value="">None</option>
+            <option th:each="val : ${T(springcoffees.domain.User.OrderBy).values()}" th:value="${val}"
+                    th:text="${#strings.capitalize(#strings.toLowerCase(val.displayValue))}"
+                    th:selected="${#strings.equals(usersFilters['orderBy'], val)}">
+            </option>
+        </select>
+    </div>
+</div>
+
+<table id="users-table">
+    <tr>
+        <th>#</th>
+        <th>Username</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>E-mail</th>
+        <th>Authority</th>
+        <th>Enabled</th>
+        <th>Select</th>
+    </tr>
+    <tr th:each="user, status : ${usersList}">
+        <td th:text="${status.count}"></td>
+        <td th:text="${user.username}"></td>
+        <td th:text="${user.firstName}"></td>
+        <td th:text="${user.lastName}"></td>
+        <td th:text="${user.email}"></td>
+        <td th:text="${user.authority}"></td>
+        <td th:text="${user.enabled}"></td>
+        <td><input type="radio" name="select-row"/>
+        </td>
+    </tr>
+</table>
+
+<div class="buttons" th:if="${usersForm.formAction == null}">
+    <button id="delete-button" class="red">Delete selected</button>
+    <button id="update-button" class="blue">Update selected</button>
+</div>
+
+<div class="loader-wrapper">
+    <div class="loader"></div>
+</div>
+
+<form id="users-form" th:action="@{/users/}" th:object="${usersForm}" method="POST" style="display: none">
+    <input type="hidden" th:field="*{formAction}"/>
+    <label for="username">Username: </label>
+    <input type="text" th:field="*{username}" disabled/>
+    <span class="validation-error"
+          th:if="${#fields.hasErrors('username')}"
+          th:errors="*{username}">Username Error</span>
+    <br>
+    <label for="firstName">First name: </label>
+    <input type="text" th:field="*{firstName}" disabled/>
+    <br>
+    <label for="lastName">Last name: </label>
+    <input type="text" th:field="*{lastName}" disabled/>
+    <br>
+    <label for="authority">Authority: </label>
+    <select th:field="*{authority}" size="1" disabled>
+        <option th:each="val : ${T(springcoffees.domain.User.Authority).values()}"
+                th:value="${val}" th:text="${#strings.capitalize(#strings.toLowerCase(val))}"
+                th:selected="${#strings.equals(usersForm.authority, val)}" >
+        </option>
+    </select>
+    <span class="validation-error"
+          th:if="${#fields.hasErrors('authority')}"
+          th:errors="*{authority}">Authority Error</span>
+    <br>
+    <label for="enabled">Enabled: </label>
+    <select th:field="*{enabled}" size="1" disabled>
+        <option th:each="val : ${T(springcoffees.domain.User.Enabled).values()}"
+                th:value=" ${val}" th:text="${#strings.capitalize(#strings.toLowerCase(val))}"
+                th:selected="${#strings.equals(usersForm.enabled, val)}">
+        </option>
+    </select>
+    <span class="validation-error"
+          th:if="${#fields.hasErrors('enabled')}"
+          th:errors="*{enabled}">Enabled Error</span>
+    <br>
+    <label for="email">E-mail: </label>
+    <input type="text" th:field="*{email}" disabled/>
+    <br>
+    <span class="notice">Click submit button to confirm your choice</span>
+    <br>
+    <button type="submit">Submit</button>
+    <button type="button" class="cancel" th:if="${usersForm.formAction != null}">Cancel</button>
+</form>
+
+</body>
+</html>

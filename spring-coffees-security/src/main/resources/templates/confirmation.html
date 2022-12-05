@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" th:replace="security-fragments::link"/>
+    <link rel="stylesheet" th:href="@{/css/web-common.css}"/>
+    <title>Confirmation</title>
+</head>
+<body>
+
+<div th:replace="security-fragments::#top-bar"></div>
+
+<th:block th:switch="${status}">
+    <h1 th:case="'ACCOUNT_CREATED'">Pending Account Confirmation</h1>
+    <h1 th:case="'RESET_LINK_SENT'">Pending Password Reset</h1>
+    <h1 th:case="'PASSWORD_SAVED'">Password Saved</h1>
+    <h1 th:case="'USER_UPDATED'">User Updated</h1>
+</th:block>
+
+<th:block th:switch="${status}">
+    <p class="status" th:case="'ACCOUNT_CREATED'">Account has been successfully created, but your current status is
+        set to 'disabled'<br> and will remain so until one of our administrators would confirm your registration.</p>
+
+    <p class="status" th:case="'RESET_LINK_SENT'">To complete the process, follow the instruction with resetting<br>
+        link sent to your e-mail. The link will be active for 24 hours.</p>
+
+    <p class="status" th:case="'PASSWORD_SAVED'">Your new password has been successfully saved.<br>
+        Please, <a class="inverse" th:href="@{/login}">re-login</a> to continue using web-site.</p>
+
+    <p class="status" th:case="'USER_UPDATED'">Personal user details have been successfully updated.<br>
+        Please, <a class="inverse" th:href="@{/user}">re-visit</a> your profile to check changes made.</p>
+</th:block>
+
+</body>
+</html>
